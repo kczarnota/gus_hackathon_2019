@@ -1,6 +1,8 @@
 package com.example.konrad.gus_hackathon_2019;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Pair;
@@ -10,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.konrad.gus_hackathon_2019.databinding.ActivityRankingBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +27,8 @@ public class RankingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ranking);
+        ActivityRankingBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_ranking);
+
         setTitle("Ranking");
         mListItems.add(new Pair<>("Tomek", 20));
         mListItems.add(new Pair<>("Marek", 100));
@@ -35,8 +40,7 @@ public class RankingActivity extends AppCompatActivity {
             }
         });
 
-        ListView rankingList = findViewById(R.id.rankingList);
-        rankingList.setAdapter(new ListAdapter(this, R.layout.row_layout, mListItems));
+        binding.rankingList.setAdapter(new ListAdapter(this, R.layout.row_layout, mListItems));
     }
 
     public class ListAdapter extends ArrayAdapter<Pair<String, Integer>> {
