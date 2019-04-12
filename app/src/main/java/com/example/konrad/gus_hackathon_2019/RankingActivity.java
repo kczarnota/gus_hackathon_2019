@@ -30,7 +30,6 @@ public class RankingActivity extends AppCompatActivity {
 
         Person person = new Person(this);
 
-        setTitle("Ranking");
         mListItems.add(new Pair<>("Tomek", 20));
         mListItems.add(new Pair<>("Marek", 100));
         mListItems.add(new Pair<>("Ty", person.getPoints()));

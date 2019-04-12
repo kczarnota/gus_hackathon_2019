@@ -9,8 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InstructionActivity"></activity>
-        <activity android:name=".RankingActivity" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
@@ -20,6 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".RankingActivity"
+            android:label="Ranking"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".InstructionActivity"
+            android:label="Instrukcja"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
