@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.konrad.gus_hackathon_2019.data.Person;
 import com.example.konrad.gus_hackathon_2019.databinding.ActivityRankingBinding;
 
 import java.util.ArrayList;
