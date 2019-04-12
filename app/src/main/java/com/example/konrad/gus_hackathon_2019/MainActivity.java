@@ -9,10 +9,16 @@ import android.view.View;
 import com.example.konrad.gus_hackathon_2019.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+    private Person mPerson;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        mPerson = new Person(this);
+        mPerson.addPoints(20);
+        binding.pointsText.setText("Masz " + mPerson.getPoints() + " punktów!");
+
 
         binding.rankingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,7 +42,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 }
