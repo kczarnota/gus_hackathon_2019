@@ -7,7 +7,7 @@ public class Value {
     String year;
 
     @SerializedName("val")
-    int val;
+    double val;
 
     @SerializedName("attrId")
     int attrId;
@@ -26,11 +26,11 @@ public class Value {
         this.year = year;
     }
 
-    public int getVal() {
+    public double getVal() {
         return val;
     }
 
-    public void setVal(int val) {
+    public void setVal(double val) {
         this.val = val;
     }
 

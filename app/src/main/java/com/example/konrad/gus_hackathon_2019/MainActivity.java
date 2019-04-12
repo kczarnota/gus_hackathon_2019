@@ -83,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
         binding.cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainActivity.this, PlotActivity.class);
+                startActivity(intent);
             }
         });
 
