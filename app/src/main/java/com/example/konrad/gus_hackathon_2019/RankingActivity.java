@@ -2,6 +2,7 @@ package com.example.konrad.gus_hackathon_2019;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Pair;
@@ -27,9 +28,12 @@ public class RankingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityRankingBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_ranking);
 
+        Person person = new Person(this);
+
         setTitle("Ranking");
         mListItems.add(new Pair<>("Tomek", 20));
         mListItems.add(new Pair<>("Marek", 100));
+        mListItems.add(new Pair<>("Ty", person.getPoints()));
 
         Collections.sort(mListItems, new Comparator<Pair<String, Integer>>() {
             @Override
@@ -68,10 +72,18 @@ public class RankingActivity extends AppCompatActivity {
 
                 if (tt1 != null) {
                     tt1.setText(p.first);
+                    if (p.first.equals("Ty")) {
+                        tt1.setTextColor(getColor(android.R.color.black));
+                        tt1.setTypeface(tt1.getTypeface(), Typeface.BOLD);
+                    }
                 }
 
                 if (tt2 != null) {
                     tt2.setText(p.second.toString());
+                    if (p.first.equals("Ty")) {
+                        tt2.setTextColor(getColor(android.R.color.black));
+                        tt2.setTypeface(tt1.getTypeface(), Typeface.BOLD);
+                    }
                 }
             }
 
