@@ -158,7 +158,7 @@ public class ClassToCategoriesMaps {
     static final Map<String, String[]> CLASS_TO_EUROSTAT_CODE_MAP = new HashMap<String, String[]>() {
         {
             put("person", new String[]{"proj_15nalexp?precision=1&sex=M&age=Y15", "proj_15nalexp?precision=1&sex=F&age=Y15"});
-            put("bicycle", new int[]{"hlth_ehis_pe9i?precision=1&sex=T&physact=MV_AERO&quantile=TOTAL&age=Y15-24"});
+            put("bicycle", new String[]{"hlth_ehis_pe9i?precision=1&sex=T&physact=MV_AERO&quantile=TOTAL&age=Y15-24"});
             put("car", new String[]{"road_eqs_carage?precision=1&age=Y10-20", "road_eqs_carmot?precision=1&mot_nrg=DIE", "road_eqs_carmot?precision=1&mot_nrg=PET"});
             put("motorbike", new String[]{"tran_r_vehst?precision=1&vehicle=MOTO"});
             put("aeroplane", new String[]{"tran_r_avpa_om?tra_meas=PAS_CRD&precision=1", "avia_eq_arc_typ?precision=1&airc_cat=PAS"});
