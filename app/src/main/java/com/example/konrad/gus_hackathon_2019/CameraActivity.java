@@ -22,6 +22,9 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
@@ -36,7 +39,8 @@ import android.view.TextureView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.konrad.gus_hackathon_2019.net.bdlapi.model.ClassToCategoriesMaps;
+import com.example.konrad.gus_hackathon_2019.mapping.ClassToCategoriesMaps;
+import com.example.konrad.gus_hackathon_2019.data.Person;
 
 import org.tensorflow.lite.Interpreter;
 
@@ -71,6 +75,7 @@ public class CameraActivity extends AppCompatActivity
     private Interpreter interpreter;
     private int dropCounter = 0;
     private static final int DROP = 30;
+    private Person mPerson;
 
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
 
@@ -154,8 +159,7 @@ public class CameraActivity extends AppCompatActivity
             buffer.get(bytes);
             image.close();
             dropCounter = (dropCounter + 1) % DROP;
-            if (dropCounter == DROP - 1)
-            {
+            if (dropCounter == DROP - 1) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, null);
                 imgData = ByteBuffer.allocateDirect(1 * 416 * 416 * 3 * 4);
                 imgData.order(ByteOrder.nativeOrder());
@@ -163,8 +167,7 @@ public class CameraActivity extends AppCompatActivity
                 convertBitmapToByteBuffer(bitmap);
                 interpreter.run(imgData, output);
                 Map<Integer, Float> m = processOutput(output);
-                if (m.size() > 0)
-                {
+                if (m.size() > 0) {
                     Map.Entry<Integer, Float> maxEntry = null;
                     for (Map.Entry<Integer, Float> entry : m.entrySet()) {
                         if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
@@ -174,15 +177,26 @@ public class CameraActivity extends AppCompatActivity
                     String cls = ClassToCategoriesMaps.CLASSES[maxEntry.getKey()];
                     runOnUiThread(() -> {
                         if (!classesSet.contains(cls)) {
+                            playNotificationSound();
                             classes.add(cls);
                             classesSet.add(cls);
                             adapter.notifyDataSetChanged();
+                            mPerson.addScanned(cls);
                         }
                     });
                 }
             }
         }
 
+        private void playNotificationSound() {
+            try {
+                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                r.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     };
 
     private CaptureRequest.Builder mPreviewRequestBuilder;
@@ -236,6 +250,8 @@ public class CameraActivity extends AppCompatActivity
             e.printStackTrace();
         }
         interpreter = new Interpreter(loadedModel);
+
+        mPerson = new Person(this);
 
         ListView listView = findViewById(R.id.classes_lv);
         adapter = new ArrayAdapter<String>(this, R.layout.class_row, classes);

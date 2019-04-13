@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.databinding.DataBindingUtil;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -54,13 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 mEyeClickedCounter++;
 
                 if (mEyeClickedCounter == 5) {
-                    mPerson.setAchieved(0);
+                    mPerson.addScanned("statystyk");
                     update();
-                    Toast toast = Toast.makeText(getBaseContext(), "\uD83C\uDFC6 Jestes Statystykiem! \uD83C\uDFC6",
-                            Toast.LENGTH_LONG);
-
-                    toast.setGravity(Gravity.BOTTOM, 0, 400);
-                    toast.show();
                 }
             }
         });
@@ -74,6 +70,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPerson.reload();
+        update();
+    }
+
     private void update() {
         mBinding.pointsText.setText("Masz " + mPerson.getPoints() + " punktów!");
 
@@ -83,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             switch (i) {
                 case 0:
                     if (achievements.get(i)) {
-                        mBinding.trophy1.setText("Zdobyte");
+                        mBinding.trophy1.setText(R.string.achived);
                         mBinding.trophy1.setCompoundDrawablesRelativeWithIntrinsicBounds(null,
                                 getDrawable(R.drawable.ic_water), null, null);
                         mEyeClickedCounter = 5;
@@ -95,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 1:
                     if (achievements.get(i)) {
-                        mBinding.trophy2.setText("Zdobyte");
+                        mBinding.trophy2.setText(R.string.achived);
                         mBinding.trophy2.setCompoundDrawablesRelativeWithIntrinsicBounds(null,
                                 getDrawable(R.drawable.ic_person), null, null);
                     } else {
@@ -106,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 2:
                     if (achievements.get(i)) {
-                        mBinding.trophy3.setText("Zdobyte");
+                        mBinding.trophy3.setText(R.string.achived);
                         mBinding.trophy3.setCompoundDrawablesRelativeWithIntrinsicBounds(null,
                                 getDrawable(R.drawable.ic_clock), null, null);
                     } else {
@@ -117,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 3:
                     if (achievements.get(i)) {
-                        mBinding.trophy4.setText("Zdobyte");
+                        mBinding.trophy4.setText(R.string.achived);
                         mBinding.trophy4.setCompoundDrawablesRelativeWithIntrinsicBounds(null,
                                 getDrawable(R.drawable.ic_smartphone), null, null);
                     } else {
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 4:
                     if (achievements.get(i)) {
-                        mBinding.trophy5.setText("Zdobyte");
+                        mBinding.trophy5.setText(R.string.achived);
                         mBinding.trophy5.setCompoundDrawablesRelativeWithIntrinsicBounds(null,
                                 getDrawable(R.drawable.ic_laptop), null, null);
                     } else {
@@ -139,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 5:
                     if (achievements.get(i)) {
-                        mBinding.trophy6.setText("Zdobyte");
+                        mBinding.trophy6.setText(R.string.achived);
                         mBinding.trophy6.setCompoundDrawablesRelativeWithIntrinsicBounds(null,
                                 getDrawable(R.drawable.ic_cat), null, null);
                     } else {

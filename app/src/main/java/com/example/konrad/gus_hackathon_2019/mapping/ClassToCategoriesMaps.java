@@ -1,11 +1,11 @@
-package com.example.konrad.gus_hackathon_2019.net.bdlapi.model;
+package com.example.konrad.gus_hackathon_2019.mapping;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 public class ClassToCategoriesMaps {
-    static Random generator = new Random();
+    private static Random generator = new Random();
     public static final String[] CLASSES = new String[] {
             "person",
             "bicycle",
