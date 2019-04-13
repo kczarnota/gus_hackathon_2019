@@ -17,7 +17,6 @@ import com.example.konrad.gus_hackathon_2019.databinding.ActivityRankingBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class RankingActivity extends AppCompatActivity {
@@ -35,12 +34,7 @@ public class RankingActivity extends AppCompatActivity {
         mListItems.add(new Pair<>("Marek", 100));
         mListItems.add(new Pair<>("Ty", person.getPoints()));
 
-        Collections.sort(mListItems, new Comparator<Pair<String, Integer>>() {
-            @Override
-            public int compare(Pair<String, Integer> o1, Pair<String, Integer> o2) {
-                return (o2.second - o1.second);
-            }
-        });
+        Collections.sort(mListItems, (o1, o2) -> (o2.second - o1.second));
 
         binding.rankingList.setAdapter(new ListAdapter(this, R.layout.row_layout, mListItems));
     }

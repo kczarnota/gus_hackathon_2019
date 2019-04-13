@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 mEyeClickedCounter++;
 
                 if (mEyeClickedCounter == 5) {
-                    mPerson.setAchieved(0);
-                    update();
                     Toast toast = Toast.makeText(getBaseContext(), "\uD83C\uDFC6 Jestes Statystykiem! \uD83C\uDFC6",
                             Toast.LENGTH_LONG);
 
