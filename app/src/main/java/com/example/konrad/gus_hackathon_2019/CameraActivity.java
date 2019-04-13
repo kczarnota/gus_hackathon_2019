@@ -36,8 +36,8 @@ import android.view.TextureView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.konrad.gus_hackathon_2019.mapping.ClassToCategoriesMaps;
 import com.example.konrad.gus_hackathon_2019.data.Person;
-import com.example.konrad.gus_hackathon_2019.net.bdlapi.model.ClassToCategoriesMaps;
 
 import org.tensorflow.lite.Interpreter;
 
@@ -56,7 +56,8 @@ import java.util.Map;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class CameraActivity extends AppCompatActivity {
+public class CameraActivity extends AppCompatActivity
+{
     public static final String TAG = CameraActivity.class.getSimpleName();
     public static final String NAME_EXTRA = "com.example.konrad.gus_hackathon_2019.NAME_EXTRA";
 
@@ -155,7 +156,8 @@ public class CameraActivity extends AppCompatActivity {
             buffer.get(bytes);
             image.close();
             dropCounter = (dropCounter + 1) % DROP;
-            if (dropCounter == DROP - 1) {
+            if (dropCounter == DROP - 1)
+            {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, null);
                 imgData = ByteBuffer.allocateDirect(1 * 416 * 416 * 3 * 4);
                 imgData.order(ByteOrder.nativeOrder());
@@ -163,7 +165,8 @@ public class CameraActivity extends AppCompatActivity {
                 convertBitmapToByteBuffer(bitmap);
                 interpreter.run(imgData, output);
                 Map<Integer, Float> m = processOutput(output);
-                if (m.size() > 0) {
+                if (m.size() > 0)
+                {
                     Map.Entry<Integer, Float> maxEntry = null;
                     for (Map.Entry<Integer, Float> entry : m.entrySet()) {
                         if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
@@ -228,9 +231,11 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         mTextureView = findViewById(R.id.texture);
-        try {
+        try
+        {
             loadedModel = loadModelFile(this);
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
         interpreter = new Interpreter(loadedModel);
@@ -506,9 +511,12 @@ public class CameraActivity extends AppCompatActivity {
 
     private List<Float> flatten(float[][][] ar) {
         List<Float> retList = new ArrayList<>();
-        for (int i = 0; i < ar.length; i++) {
-            for (int j = 0; j < ar[0].length; j++) {
-                for (int k = 0; k < ar[0][0].length; k++) {
+        for (int i = 0; i <ar.length; i++)
+        {
+            for (int j = 0; j <ar[0].length; j++)
+            {
+                for (int k = 0; k <ar[0][0].length; k++)
+                {
                     retList.add(ar[i][j][k]);
                 }
             }
@@ -516,7 +524,7 @@ public class CameraActivity extends AppCompatActivity {
         return retList;
     }
 
-    private Map<Integer, Float> processOutput(float[][][][] data) {
+    private Map<Integer, Float> processOutput(float [][][][] data) {
         // A good article to put the math into words can be fount at: https://hackernoon.com/understanding-yolo-f5a74bbc7967
 
         float[][][] output = data[0]; //output is now 13x13x285
@@ -569,7 +577,7 @@ public class CameraActivity extends AppCompatActivity {
 
     private void softmax(float[] floats) {
         float max = Float.NEGATIVE_INFINITY;
-        for (float number : floats) {
+        for (float number: floats) {
             max = Math.max(max, number);
         }
         float sum = 0.0f;
@@ -582,7 +590,8 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
-    private MappedByteBuffer loadModelFile(Activity activity) throws IOException {
+    private MappedByteBuffer loadModelFile(Activity activity) throws IOException
+    {
         AssetFileDescriptor fileDescriptor = activity.getAssets().openFd("yolov2-tiny.tflite");
         FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
         FileChannel fileChannel = inputStream.getChannel();

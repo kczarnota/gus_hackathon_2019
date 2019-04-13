@@ -4,5 +4,6 @@
     <string name="ranking">Ranking</string>
     <string name="achievements">Osiągnięcia:</string>
     <string name="scaner">Skaner</string>
+    <string name="title_activity_quiz">QuizActivity</string>
     <string name="achived">Zdobyte</string>
 </resources>
