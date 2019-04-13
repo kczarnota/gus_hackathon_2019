@@ -3,7 +3,141 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".InstructionActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:fontFamily="@font/candal"
+                android:text="Wkrocz do wspaniałego świata Danych Statystycznych!"
+                android:textAlignment="center"
+                android:textColor="@color/primaryColor"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:fontFamily="@font/candal"
+                android:text="Ponad 80 kategorii czeka, aby je odkryć."
+                android:textAlignment="center"
+                android:textColor="@color/primaryLightColor"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="63dp"
+                app:srcCompat="@drawable/ic_camera_black_48dp" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="101dp"
+                android:fontFamily="@font/candal"
+                android:text="Użyj kamery smartfona, aby znaleźć odpowiedni obiekt."
+                android:textAlignment="center"
+                android:textColor="@color/primaryGreenColor"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                app:srcCompat="@drawable/ic_cat" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="77dp"
+                android:fontFamily="@font/candal"
+                android:text="Wybierz jedną z wykrytych kategorii. "
+                android:textAlignment="center"
+                android:textColor="@color/primaryLightColor"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                app:srcCompat="@drawable/ic_laptop" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="136dp"
+                android:fontFamily="@font/candal"
+                android:text="Podziel się ze znajomymi swoim odkryciem i dowiedz się więcej, jak dane opisują Twoje otoczenie."
+                android:textAlignment="center"
+                android:textColor="@color/primaryGreenColor"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                app:srcCompat="@drawable/ic_trophy_gold" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="117dp"
+                android:fontFamily="@font/candal"
+                android:text="Zbieraj punkty, rywalizuj z przyjaciółmi, zdobywaj osiągnięcia."
+                android:textAlignment="center"
+                android:textColor="@color/primaryLightColor"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:fontFamily="@font/candal"
+                android:text="Powodzenia!"
+                android:textAlignment="center"
+                android:textColor="@color/primaryColor"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
