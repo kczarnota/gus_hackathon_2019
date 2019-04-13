@@ -6,4 +6,12 @@
     <string name="scaner">Skaner</string>
     <string name="title_activity_quiz">QuizActivity</string>
     <string name="achived">Zdobyte</string>
+    <string name="found_person">"\uD83C\uDFC6 Znalazłeś osobę! \uD83C\uDFC6"</string>
+    <string name="found_bottle">"\uD83C\uDFC6 Znalazłeś butelkę! \uD83C\uDFC6"</string>
+    <string name="found_clock">"\uD83C\uDFC6 Znalazłeś zegar! \uD83C\uDFC6"</string>
+    <string name="found_phone">"\uD83C\uDFC6 Znalazłeś telefon! \uD83C\uDFC6"</string>
+    <string name="found_laptop">"\uD83C\uDFC6 Znalazłeś laptop! \uD83C\uDFC6"</string>
+    <string name="found_cat">"\uD83C\uDFC6 Znalazłeś kota! \uD83C\uDFC6"</string>
+    <string name="statystyk">"\uD83C\uDFC6 Jestes Statystykiem! \uD83C\uDFC6"</string>
+
 </resources>
