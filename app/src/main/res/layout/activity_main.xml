@@ -12,36 +12,47 @@
             android:id="@+id/cameraBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
             android:background="@drawable/circle"
+            android:elevation="8dp"
             android:padding="20dp"
             android:src="@drawable/ic_camera_white_48dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/instructionBtn"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/instruction"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cameraBtn"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/rankingBtn"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/ranking"
-            app:layout_constraintEnd_toEndOf="@+id/instructionBtn"
-            app:layout_constraintStart_toStartOf="@+id/instructionBtn"
-            app:layout_constraintTop_toBottomOf="@+id/instructionBtn" />
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cameraBtn" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/eyeImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -61,123 +72,131 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-        <TableLayout
-            android:id="@+id/tableLayout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="32dp"
-            android:gravity="center_horizontal"
-            android:padding="8dp"
-            android:stretchColumns="*"
-            app:layout_constraintBottom_toTopOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/instructionBtn"
-            app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/trophy1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_trophy"
-                    android:padding="16dp"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    android:text=""
-                    android:textAlignment="center"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/trophy2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_trophy"
-                    android:padding="16dp"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    android:text=""
-                    android:textAlignment="center"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/trophy3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_trophy"
-                    android:padding="16dp"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    android:text=""
-                    android:textAlignment="center"
-                    android:textSize="10sp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/trophy4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_trophy"
-                    android:padding="16dp"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    android:text=""
-                    android:textAlignment="center"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/trophy5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_trophy"
-                    android:padding="16dp"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    android:text=""
-                    android:textAlignment="center"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/trophy6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_trophy"
-                    android:padding="16dp"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    android:text=""
-                    android:textAlignment="center"
-                    android:textSize="10sp" />
-            </TableRow>
-        </TableLayout>
+            app:layout_constraintTop_toBottomOf="@+id/eyeImage" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/trophy1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:drawableTop="@drawable/ic_trophy"
+            android:padding="16dp"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toStartOf="@id/trophy2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rankingTextView" />
+
+        <TextView
+            android:id="@+id/trophy2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:drawableTop="@drawable/ic_trophy"
+            android:padding="16dp"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toStartOf="@id/trophy3"
+            app:layout_constraintStart_toEndOf="@+id/trophy1"
+            app:layout_constraintTop_toBottomOf="@+id/rankingTextView" />
+
+        <TextView
+            android:id="@+id/trophy3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:drawableTop="@drawable/ic_trophy"
+            android:padding="16dp"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/trophy2"
+            app:layout_constraintTop_toBottomOf="@+id/rankingTextView" />
+
+        <TextView
+            android:id="@+id/trophy4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:drawableTop="@drawable/ic_trophy"
+            android:padding="16dp"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toStartOf="@id/trophy5"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/trophy1" />
+
+        <TextView
+            android:id="@+id/trophy5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:drawableTop="@drawable/ic_trophy"
+            android:padding="16dp"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toStartOf="@id/trophy6"
+            app:layout_constraintStart_toEndOf="@+id/trophy4"
+            app:layout_constraintTop_toBottomOf="@+id/trophy2" />
+
+        <TextView
+            android:id="@+id/trophy6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:drawableTop="@drawable/ic_trophy"
+            android:padding="16dp"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="8sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/trophy5"
+            app:layout_constraintTop_toBottomOf="@+id/trophy3" />
+
+        <TextView
+            android:id="@+id/rankingTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/achievements"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tableLayout"
-            app:layout_constraintStart_toStartOf="@+id/tableLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 </layout>

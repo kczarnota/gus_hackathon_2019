@@ -42,6 +42,27 @@ public class Person {
         mAchievements.set(index, true);
         SharedPreferences.Editor editor = mSharedPrefs.edit();
         editor.putBoolean(Integer.toString(index), true);
+        mPoints += 10;
+        editor.putInt("points", mPoints);
+        editor.apply();
+    }
+
+    public void reset() {
+        mPoints = 0;
+        mAchievements.clear();
+
+        for (int i = 0; i < 6; i++) {
+            mAchievements.add(false);
+        }
+
+        SharedPreferences.Editor editor = mSharedPrefs.edit();
+        editor.putInt("points", mPoints);
+        editor.putBoolean("0", false);
+        editor.putBoolean("1", false);
+        editor.putBoolean("2", false);
+        editor.putBoolean("3", false);
+        editor.putBoolean("4", false);
+        editor.putBoolean("5", false);
         editor.apply();
     }
 }
