@@ -96,7 +96,7 @@ public class ClassToCategoriesMaps {
             "toothbrush"
     };
 
-    static final Map<String, int[]> CLASS_TO_BDL_VARIABLE_MAP = new HashMap<String, int[]>() {
+    public static final Map<String, int[]> CLASS_TO_BDL_VARIABLE_MAP = new HashMap<String, int[]>() {
         {
             put("person", new int[]{105836, 105837, 35039});
             put("bicycle", new int[]{288080, 80640, 80614});

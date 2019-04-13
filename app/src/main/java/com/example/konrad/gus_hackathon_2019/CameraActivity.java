@@ -59,10 +59,14 @@ import java.util.Map;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
+import static com.example.konrad.gus_hackathon_2019.mapping.ClassToCategoriesMaps.CLASSES;
+import static com.example.konrad.gus_hackathon_2019.mapping.ClassToCategoriesMaps.CLASS_TO_BDL_VARIABLE_MAP;
+
 public class CameraActivity extends AppCompatActivity
 {
     public static final String TAG = CameraActivity.class.getSimpleName();
     public static final String NAME_EXTRA = "com.example.konrad.gus_hackathon_2019.NAME_EXTRA";
+    private static final Float PROBABILITY_THRESHOLD = 0.7f;
 
     private MappedByteBuffer loadedModel;
     private ByteBuffer imgData;
@@ -177,7 +181,8 @@ public class CameraActivity extends AppCompatActivity
                     String cls = ClassToCategoriesMaps.CLASSES[maxEntry.getKey()];
                     Map.Entry<Integer, Float> finalMaxEntry = maxEntry;
                     runOnUiThread(() -> {
-                        if (!classesSet.contains(cls)) {
+                        if (CLASS_TO_BDL_VARIABLE_MAP.containsKey(cls) && !classesSet.contains(cls)
+                                && finalMaxEntry.getValue() > PROBABILITY_THRESHOLD) {
                             playNotificationSound();
                             classes.add(cls);
                             classes_id.add(finalMaxEntry.getKey());
