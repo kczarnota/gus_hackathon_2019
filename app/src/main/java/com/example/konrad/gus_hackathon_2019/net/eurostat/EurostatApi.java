@@ -22,8 +22,9 @@ public class EurostatApi {
         Response<EurostatDataResponse> response = null;
         try {
             response = result.execute();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         EurostatDataResponse body = Objects.requireNonNull(response).body();
         return Util.convertToDataPoints(body);

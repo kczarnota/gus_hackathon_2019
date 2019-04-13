@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -48,18 +49,41 @@ public class PlotActivity extends AppCompatActivity {
 
         this.dataPoints = EurostatApi.callData("tran_r_avpa_om?tra_meas=PAS_CRD&precision=1", "PL");
 
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
+        if (dataPoints != null) {
+            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
 
-        graph.getViewport().setScalable(true);
-        graph.getViewport().setScalableY(true);
+            graph.getViewport().setScalable(true);
+            graph.getViewport().setScalableY(true);
 
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMinY(0);
-        graph.getViewport().setMaxY(Util.getMax(dataPoints));
+            graph.getViewport().setYAxisBoundsManual(true);
+            graph.getViewport().setMinY(0);
+            graph.getViewport().setMaxY(Util.getMax(dataPoints));
 
-        graph.addSeries(series);
+            graph.addSeries(series);
+        } else {
+            Toast.makeText(this, "It seems that you don't have internet connection", Toast.LENGTH_SHORT).show();
+            Button refreshBtn = findViewById(R.id.refresh);
+            refreshBtn.setVisibility(View.VISIBLE);
+            refreshBtn.setOnClickListener(v -> {
+                this.dataPoints = EurostatApi.callData("tran_r_avpa_om?tra_meas=PAS_CRD&precision=1", "PL");
 
+                if (dataPoints != null) {
+                    LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
 
+                    graph.getViewport().setScalable(true);
+                    graph.getViewport().setScalableY(true);
+
+                    graph.getViewport().setYAxisBoundsManual(true);
+                    graph.getViewport().setMinY(0);
+                    graph.getViewport().setMaxY(Util.getMax(dataPoints));
+
+                    graph.addSeries(series);
+                    refreshBtn.setVisibility(View.INVISIBLE);
+                } else {
+                    Toast.makeText(this, "It seems that you don't have internet connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     void togglePlotType() {

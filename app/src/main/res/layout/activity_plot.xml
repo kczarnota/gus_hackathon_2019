@@ -13,12 +13,18 @@
 
         <TextView
             android:id="@+id/plot_desc"
-            android:layout_width="300dp"
+            android:layout_width="200dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="Test"
             android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/refresh"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:visibility="invisible"
+            android:background="@drawable/refresh"/>
 
         <ToggleButton
             android:id="@+id/toggle_plot_type"

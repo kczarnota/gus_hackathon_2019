@@ -1,6 +1,10 @@
 package com.example.konrad.gus_hackathon_2019;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.databinding.DataBindingUtil;
@@ -30,8 +34,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mBinding.cameraBtn.setOnClickListener(view -> {
-            Intent i = new Intent(MainActivity.this, CameraActivity.class);
-            startActivity(i);
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Intent i = new Intent(MainActivity.this, CameraActivity.class);
+                startActivity(i);
+            } else {
+                Toast.makeText(this, "Please grant permission for camera before entering scanning", Toast.LENGTH_SHORT).show();
+                ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 0);
+            }
         });
 
         mBinding.instructionBtn.setOnClickListener(view -> {
@@ -56,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
         });
         mPerson = new Person(this);
         update();
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 0);
+            return;
+        }
     }
 
     private void update() {
