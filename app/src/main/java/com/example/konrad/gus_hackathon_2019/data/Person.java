@@ -24,6 +24,7 @@ public class Person {
         mAchievements.add(mSharedPrefs.getBoolean("3", false));
         mAchievements.add(mSharedPrefs.getBoolean("4", false));
         mAchievements.add(mSharedPrefs.getBoolean("5", false));
+        mAchievements.add(mSharedPrefs.getBoolean("6", false));
         mContext = context;
     }
 
@@ -55,7 +56,7 @@ public class Person {
         mPoints = 0;
         mAchievements.clear();
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 7; i++) {
             mAchievements.add(false);
         }
 
@@ -67,6 +68,8 @@ public class Person {
         editor.putBoolean("3", false);
         editor.putBoolean("4", false);
         editor.putBoolean("5", false);
+        editor.putBoolean("6", false);
+
         editor.apply();
     }
 
@@ -79,12 +82,12 @@ public class Person {
         mAchievements.add(mSharedPrefs.getBoolean("3", false));
         mAchievements.add(mSharedPrefs.getBoolean("4", false));
         mAchievements.add(mSharedPrefs.getBoolean("5", false));
+        mAchievements.add(mSharedPrefs.getBoolean("6", false));
+
     }
 
     public void addScanned(String scanned) {
-
         switch (scanned) {
-
             case "bottle":
                 if (!mAchievements.get(0)) {
                     setAchieved(0);
@@ -134,6 +137,16 @@ public class Person {
                 if (!mAchievements.get(5)) {
                     setAchieved(5);
                     Toast toast = Toast.makeText(mContext, "\uD83C\uDFC6 Znalazłeś kota! \uD83C\uDFC6",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM, 0, 400);
+                    toast.show();
+                }
+                break;
+            case "statystyk":
+                if (!mAchievements.get(6)) {
+                    setAchieved(6);
+                    addPoints(90);
+                    Toast toast = Toast.makeText(mContext, "\uD83C\uDFC6 Jestes Statystykiem! \uD83C\uDFC6",
                             Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM, 0, 400);
                     toast.show();

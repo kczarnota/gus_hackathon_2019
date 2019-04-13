@@ -45,11 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 mEyeClickedCounter++;
 
                 if (mEyeClickedCounter == 5) {
-                    Toast toast = Toast.makeText(getBaseContext(), "\uD83C\uDFC6 Jestes Statystykiem! \uD83C\uDFC6",
-                            Toast.LENGTH_LONG);
-
-                    toast.setGravity(Gravity.BOTTOM, 0, 400);
-                    toast.show();
+                    mPerson.addScanned("statystyk");
+                    update();
                 }
             }
         });
