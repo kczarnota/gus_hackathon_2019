@@ -2,6 +2,7 @@ package com.example.konrad.gus_hackathon_2019;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,6 +10,7 @@ import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
+import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -29,6 +31,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +39,11 @@ import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
 import android.view.TextureView;
+import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.konrad.gus_hackathon_2019.mapping.ClassToCategoriesMaps;
@@ -44,7 +51,9 @@ import com.example.konrad.gus_hackathon_2019.data.Person;
 
 import org.tensorflow.lite.Interpreter;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -59,14 +68,13 @@ import java.util.Map;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-import static com.example.konrad.gus_hackathon_2019.mapping.ClassToCategoriesMaps.CLASSES;
 import static com.example.konrad.gus_hackathon_2019.mapping.ClassToCategoriesMaps.CLASS_TO_BDL_VARIABLE_MAP;
 
 public class CameraActivity extends AppCompatActivity
 {
     public static final String TAG = CameraActivity.class.getSimpleName();
     public static final String NAME_EXTRA = "com.example.konrad.gus_hackathon_2019.NAME_EXTRA";
-    private static final Float PROBABILITY_THRESHOLD = 0.7f;
+    private static final Float PROBABILITY_THRESHOLD = 0.3f;
 
     private MappedByteBuffer loadedModel;
     private ByteBuffer imgData;
@@ -80,6 +88,7 @@ public class CameraActivity extends AppCompatActivity
     private int dropCounter = 0;
     private static final int DROP = 30;
     private Person mPerson;
+    private ArrayList<Bitmap> images = new ArrayList<>();
 
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
 
@@ -164,7 +173,11 @@ public class CameraActivity extends AppCompatActivity
             image.close();
             dropCounter = (dropCounter + 1) % DROP;
             if (dropCounter == DROP - 1) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, null);
+                Bitmap bitmapOrg = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, null);
+                Matrix matrix = new Matrix();
+                matrix.postRotate(90);
+                Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmapOrg, 1280, 800, true);
+                Bitmap bitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
                 imgData = ByteBuffer.allocateDirect(1 * 416 * 416 * 3 * 4);
                 imgData.order(ByteOrder.nativeOrder());
                 float[][][][] output = new float[1][13][13][425];
@@ -189,6 +202,7 @@ public class CameraActivity extends AppCompatActivity
                             classesSet.add(cls);
                             adapter.notifyDataSetChanged();
                             mPerson.addScanned(cls);
+                            images.add(bitmap);
                         }
                     });
                 }
@@ -244,6 +258,7 @@ public class CameraActivity extends AppCompatActivity
     private ArrayList<Integer> classes_id = new ArrayList<>();
     private HashSet classesSet = new HashSet();
     private ArrayAdapter<String> adapter;
+    private int jpegOrientation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -265,9 +280,47 @@ public class CameraActivity extends AppCompatActivity
         adapter = new ArrayAdapter<String>(this, R.layout.class_row, classes);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Intent i = new Intent(CameraActivity.this, PlotActivity.class);
-            i.putExtra(NAME_EXTRA, classes_id.get(position));
-            startActivity(i);
+            Dialog settingsDialog = new Dialog(this);
+            settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            View rootView = getLayoutInflater().inflate(R.layout.share_dialog,null);
+            settingsDialog.setContentView(rootView);
+            ImageView imageView = rootView.findViewById(R.id.taken_picture);
+            imageView.setImageBitmap(images.get(position));
+            Button share = rootView.findViewById(R.id.share);
+            share.setOnClickListener(v -> {
+                try {
+                    Bitmap bitmap = images.get(position);
+                    File cachePath = new File(getCacheDir(), "images");
+                    cachePath.mkdirs();
+                    FileOutputStream stream = new FileOutputStream(cachePath + "/image.png"); // overwrites this image every time
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                File imagePath = new File(getCacheDir(), "images");
+                File newFile = new File(imagePath, "image.png");
+                Uri contentUri = FileProvider.getUriForFile(this, "com.example.myapp.fileprovider", newFile);
+
+                if (contentUri != null) {
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND);
+                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // temp permission for receiving app to read this file
+                    shareIntent.setDataAndType(contentUri, getContentResolver().getType(contentUri));
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
+                    startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+                }
+
+            });
+
+            Button showPlot = rootView.findViewById(R.id.dismiss);
+            showPlot.setOnClickListener(v -> {
+                Intent i = new Intent(CameraActivity.this, PlotActivity.class);
+                i.putExtra(NAME_EXTRA, classes_id.get(position));
+                startActivity(i);
+            });
+            settingsDialog.show();
         });
     }
 
@@ -348,6 +401,7 @@ public class CameraActivity extends AppCompatActivity
                         break;
                 }
 
+                jpegOrientation = (displayRotation + mSensorOrientation + 270) % 360;
                 Point displaySize = new Point();
                 getWindowManager().getDefaultDisplay().getSize(displaySize);
                 int rotatedPreviewWidth = width;
@@ -465,6 +519,7 @@ public class CameraActivity extends AppCompatActivity
             mPreviewRequestBuilder
                     = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
             mPreviewRequestBuilder.addTarget(surface);
+            mPreviewRequestBuilder.set(CaptureRequest.JPEG_ORIENTATION, jpegOrientation);
 
             // Here, we create a CameraCaptureSession for camera preview.
             mCameraDevice.createCaptureSession(Arrays.asList(surface, mImageReader.getSurface()),

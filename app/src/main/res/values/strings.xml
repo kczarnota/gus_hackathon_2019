@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Wielkie Oko</string>
+    <string name="app_name">World Explorer</string>
     <string name="instruction">Instrukcja</string>
     <string name="ranking">Ranking</string>
     <string name="achievements">Osiągnięcia:</string>
@@ -13,5 +13,7 @@
     <string name="found_laptop">"\uD83C\uDFC6 Znalazłeś laptop! \uD83C\uDFC6"</string>
     <string name="found_cat">"\uD83C\uDFC6 Znalazłeś kota! \uD83C\uDFC6"</string>
     <string name="statystyk">"\uD83C\uDFC6 Jestes Statystykiem! \uD83C\uDFC6"</string>
+    <string name="share">Udostępnij</string>
+    <string name="show_plot">Pokaż wykres</string>
 
 </resources>
