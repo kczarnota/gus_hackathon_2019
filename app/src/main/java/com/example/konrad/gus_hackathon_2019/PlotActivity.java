@@ -5,14 +5,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.example.konrad.gus_hackathon_2019.net.bdlapi.BDLApiAdapter;
-import com.example.konrad.gus_hackathon_2019.net.bdlapi.RetrofitClientInstance;
-import com.example.konrad.gus_hackathon_2019.net.bdlapi.model.BaseResult;
-import com.example.konrad.gus_hackathon_2019.net.bdlapi.model.Variable;
+import com.example.konrad.gus_hackathon_2019.net.eurostat.EurostatApi;
 import com.example.konrad.gus_hackathon_2019.util.Util;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.ValueDependentColor;
@@ -20,20 +18,12 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-
-import java.io.IOException;
-import java.util.Objects;
-
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-
 public class PlotActivity extends AppCompatActivity {
     GraphView graph;
     TextView plot_desc;
     ToggleButton change_plot_type;
     boolean bar_plot = false;
-    private BaseResult body;
+    private DataPoint[] dataPoints;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,53 +36,36 @@ public class PlotActivity extends AppCompatActivity {
         Intent i = getIntent();
         Toast.makeText(this, i.getStringExtra(CameraActivity.NAME_EXTRA), Toast.LENGTH_SHORT).show();
 
-        plot_desc = findViewById(R.id.plot_desc);
-        change_plot_type = findViewById(R.id.toggle_plot_type);
-        change_plot_type.setOnClickListener(view -> togglePlotType());
-        graph = findViewById(R.id.graph);
-        Retrofit instance = RetrofitClientInstance.getRetrofitInstance();
-        BDLApiAdapter adapter = instance.create(BDLApiAdapter.class);
-        Call<BaseResult> result = adapter.getDataById(1234);
-        Response<BaseResult> response = null;
-        try {
-            response = result.execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.body = Objects.requireNonNull(response).body();
-        DataPoint[] dataPoints = Util.convertToDataPoints(body);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
+        plot_desc = (TextView) findViewById(R.id.plot_desc);
+        change_plot_type = (ToggleButton) findViewById(R.id.toggle_plot_type);
+        change_plot_type.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                togglePlotType();
+            }
+        });
+        graph = (GraphView) findViewById(R.id.graph);
 
+        this.dataPoints = EurostatApi.callData("tran_r_avpa_om?tra_meas=PAS_CRD&precision=1", "PL");
+
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
 
         graph.getViewport().setScalable(true);
         graph.getViewport().setScalableY(true);
 
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMinY(0);
-        graph.getViewport().setMaxY(Util.getMax(body));
+        graph.getViewport().setMaxY(Util.getMax(dataPoints));
 
         graph.addSeries(series);
 
-        Call<Variable> result_next = adapter.getVariableNameById(1234);
-        Response<Variable> response_next = null;
-        try {
-            response_next = result_next.execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Variable v = response_next.body();
-        String s = String.format("%s (%s)", v.getN(), v.getMeasureUnitName());
-
-        plot_desc.setText(s);
 
     }
 
     void togglePlotType() {
         this.graph.removeAllSeries();
-        DataPoint[] dataPoints = Util.convertToDataPoints(body);
-        if (this.bar_plot == false) {
-            BarGraphSeries<DataPoint> series = new BarGraphSeries<>(dataPoints);
+        if (!this.bar_plot) {
+            BarGraphSeries<DataPoint> series = new BarGraphSeries<>(this.dataPoints);
             series.setSpacing(20);
             series.setDrawValuesOnTop(true);
             series.setValuesOnTopColor(Color.RED);
@@ -105,7 +78,7 @@ public class PlotActivity extends AppCompatActivity {
             });
             this.graph.addSeries(series);
         } else {
-            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
+            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(this.dataPoints);
             this.graph.addSeries(series);
         }
 
