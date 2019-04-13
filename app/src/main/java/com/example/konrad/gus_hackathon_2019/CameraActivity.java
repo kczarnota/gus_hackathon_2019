@@ -66,7 +66,7 @@ public class CameraActivity extends AppCompatActivity
 {
     public static final String TAG = CameraActivity.class.getSimpleName();
     public static final String NAME_EXTRA = "com.example.konrad.gus_hackathon_2019.NAME_EXTRA";
-    private static final Float PROBABILITY_THRESHOLD = 0.7f;
+    private static final Float PROBABILITY_THRESHOLD = 0.3f;
 
     private MappedByteBuffer loadedModel;
     private ByteBuffer imgData;

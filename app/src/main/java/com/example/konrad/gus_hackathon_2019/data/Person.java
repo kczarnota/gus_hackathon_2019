@@ -142,7 +142,8 @@ public class Person {
     }
 
     private void notifyAchievementUnlocked(int messageId) {
-        Toast toast = Toast.makeText(mContext, messageId, Toast.LENGTH_LONG);
+        String msg = "\uD83C\uDFC6 " + mContext.getString(messageId) + " \uD83C\uDFC6";
+        Toast toast = Toast.makeText(mContext, msg, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.BOTTOM, 0, 400);
         toast.show();
 
