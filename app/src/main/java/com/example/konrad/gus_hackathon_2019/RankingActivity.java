@@ -32,7 +32,7 @@ public class RankingActivity extends AppCompatActivity {
 
         mListItems.add(new Pair<>("Tomek", 20));
         mListItems.add(new Pair<>("Marek", 100));
-        mListItems.add(new Pair<>("Ty", person.getPoints()));
+        mListItems.add(new Pair<>(getString(R.string.player_name), person.getPoints()));
 
         Collections.sort(mListItems, (o1, o2) -> (o2.second - o1.second));
 
@@ -66,7 +66,7 @@ public class RankingActivity extends AppCompatActivity {
 
                 if (tt1 != null) {
                     tt1.setText(p.first);
-                    if (p.first.equals("Ty")) {
+                    if (p.first.equals(getString(R.string.player_name))) {
                         tt1.setTextColor(getColor(android.R.color.black));
                         tt1.setTypeface(tt1.getTypeface(), Typeface.BOLD);
                     }
@@ -74,7 +74,7 @@ public class RankingActivity extends AppCompatActivity {
 
                 if (tt2 != null) {
                     tt2.setText(p.second.toString());
-                    if (p.first.equals("Ty")) {
+                    if (p.first.equals(getString(R.string.player_name))) {
                         tt2.setTextColor(getColor(android.R.color.black));
                         tt2.setTypeface(tt1.getTypeface(), Typeface.BOLD);
                     }

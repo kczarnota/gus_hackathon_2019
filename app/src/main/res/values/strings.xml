@@ -17,4 +17,6 @@
     <string name="line_plot">Line plot</string>
     <string name="grand_perm">Please grant permission for camera before entering scanning</string>
     <string name="have_points">Masz %s punktów!</string>
+    <string name="player_name">Ty</string>
+    <string name="no_internet">It seems that you don\'t have internet connection</string>
 </resources>
