@@ -36,7 +36,7 @@ import android.view.TextureView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.konrad.gus_hackathon_2019.net.bdlapi.model.ClassToCategoriesMaps;
+import com.example.konrad.gus_hackathon_2019.mapping.ClassToCategoriesMaps;
 
 import org.tensorflow.lite.Interpreter;
 
