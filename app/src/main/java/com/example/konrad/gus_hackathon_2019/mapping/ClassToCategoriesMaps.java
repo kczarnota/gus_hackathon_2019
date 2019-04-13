@@ -193,7 +193,7 @@ public class ClassToCategoriesMaps {
     public static int bdlVariableFromClass(int classId) {
         int[] variableIds = CLASS_TO_BDL_VARIABLE_MAP.get(CLASSES[classId]);
         if (variableIds != null) {
-            int index = generator.nextInt() % variableIds.length;
+            int index = Math.abs(generator.nextInt() % variableIds.length);
             return variableIds[index];
         } else {
             return 0;
@@ -203,7 +203,7 @@ public class ClassToCategoriesMaps {
     public static String eurostatUrlFromClass(int classId) {
         String[] urls = CLASS_TO_EUROSTAT_CODE_MAP.get(CLASSES[classId]);
         if (urls != null) {
-            int index = generator.nextInt() % urls.length;
+            int index = Math.abs(generator.nextInt() % urls.length);
             return urls[index];
         } else {
             return null;

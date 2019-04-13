@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this, CameraActivity.class);
                 startActivity(i);
             } else {
-                Toast.makeText(this, "Please grant permission for camera before entering scanning", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.grand_perm, Toast.LENGTH_SHORT).show();
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
             }
         });
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void update() {
-        mBinding.pointsText.setText("Masz " + mPerson.getPoints() + " punktów!");
+        mBinding.pointsText.setText(getString(R.string.have_points, Integer.toString(mPerson.getPoints())));
 
         List<Boolean> achievements = mPerson.getAchievements();
 

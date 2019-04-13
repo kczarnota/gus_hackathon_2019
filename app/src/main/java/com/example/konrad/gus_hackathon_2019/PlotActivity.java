@@ -15,11 +15,11 @@ import com.example.konrad.gus_hackathon_2019.net.bdlapi.BDLApi;
 import com.example.konrad.gus_hackathon_2019.net.eurostat.EurostatApi;
 import com.example.konrad.gus_hackathon_2019.util.Util;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.Objects;
 import java.util.Random;
 
 import static com.example.konrad.gus_hackathon_2019.CameraActivity.NAME_EXTRA;
@@ -41,21 +41,20 @@ public class PlotActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plot);
+        plot_desc = findViewById(R.id.plot_desc);
+        graph = findViewById(R.id.graph);
+    }
+
+    protected void onResume() {
+        super.onResume();
 
         Intent i = getIntent();
-        int class_id = i.getExtras().getInt(NAME_EXTRA);
+        int class_id = Objects.requireNonNull(i.getExtras()).getInt(NAME_EXTRA);
+
         this.dataPoints = chooseAndPrepareData(class_id);
 
-        plot_desc = (TextView) findViewById(R.id.plot_desc);
-        change_plot_type = (ToggleButton) findViewById(R.id.toggle_plot_type);
-        change_plot_type.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                togglePlotType();
-            }
-        });
-        graph = (GraphView) findViewById(R.id.graph);
-
+        change_plot_type = findViewById(R.id.toggle_plot_type);
+        change_plot_type.setOnClickListener(view -> togglePlotType());
 
         if (dataPoints != null) {
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
@@ -69,7 +68,7 @@ public class PlotActivity extends AppCompatActivity {
 
             graph.addSeries(series);
         } else {
-            Toast.makeText(this, "It seems that you don't have internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.no_internet, Toast.LENGTH_SHORT).show();
             Button refreshBtn = findViewById(R.id.refresh);
             refreshBtn.setVisibility(View.VISIBLE);
             refreshBtn.setOnClickListener(v -> {
@@ -88,7 +87,7 @@ public class PlotActivity extends AppCompatActivity {
                     graph.addSeries(series);
                     refreshBtn.setVisibility(View.INVISIBLE);
                 } else {
-                    Toast.makeText(this, "It seems that you don't have internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.no_internet, Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -102,12 +101,8 @@ public class PlotActivity extends AppCompatActivity {
             series.setDrawValuesOnTop(true);
             series.setValuesOnTopColor(Color.RED);
 
-            series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
-                @Override
-                public int get(DataPoint data) {
-                    return Color.rgb((int) data.getX() * 255 / 4, (int) Math.abs(data.getY() * 255 / 6), 100);
-                }
-            });
+            series.setValueDependentColor(data -> Color.rgb((int) data.getX() * 255 / 4,
+                    (int) Math.abs(data.getY() * 255 / 6), 100));
             this.graph.addSeries(series);
         } else {
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(this.dataPoints);
@@ -130,7 +125,7 @@ public class PlotActivity extends AppCompatActivity {
             String url = eurostatUrlFromClass(class_id);
             if (url != null) {
                 Random ra = new Random();
-                int code = ra.nextInt() % COUNTRY_CODES.length;
+                int code = Math.abs(ra.nextInt() % COUNTRY_CODES.length);
                 String desc = String.format("%s in %s", EurostatApi.callDesc(url, COUNTRY_CODES[code]), EurostatApi.callCountryName(url, COUNTRY_CODES[code]));
                 plot_desc.setText(desc);
                 return EurostatApi.callData(url, COUNTRY_CODES[code]);
@@ -138,7 +133,7 @@ public class PlotActivity extends AppCompatActivity {
         }
         int variable = bdlVariableFromClass(class_id);
         if (variable != 0) {
-            String desc = String.format("%s in %s", BDLApi.callDesc(variable));
+            String desc = String.format("%s", BDLApi.callDesc(variable));
             plot_desc.setText(desc);
             return BDLApi.callData(variable);
         }

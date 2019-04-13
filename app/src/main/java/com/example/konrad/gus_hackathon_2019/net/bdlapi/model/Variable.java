@@ -10,7 +10,10 @@ public class Variable {
     String variableId;
 
     @SerializedName("n1")
-    String n;
+    public String n1;
+
+    @SerializedName("n2")
+    public String n2;
 
     @SerializedName("measureUnitId")
     String measureUnitId;
@@ -32,14 +35,6 @@ public class Variable {
 
     public void setVariableId(String variableId) {
         this.variableId = variableId;
-    }
-
-    public String getN() {
-        return n;
-    }
-
-    public void setN(String n) {
-        this.n = n;
     }
 
     public String getMeasureUnitId() {
@@ -66,10 +61,11 @@ public class Variable {
         this.years = years;
     }
 
-    public Variable(String id, String variableId, String n, String measureUnitId, String measureUnitName, int[] years) {
+    public Variable(String id, String variableId, String n1, String n2, String measureUnitId, String measureUnitName, int[] years) {
         this.id = id;
         this.variableId = variableId;
-        this.n = n;
+        this.n1 = n1;
+        this.n2 = n2;
         this.measureUnitId = measureUnitId;
         this.measureUnitName = measureUnitName;
         this.years = years;

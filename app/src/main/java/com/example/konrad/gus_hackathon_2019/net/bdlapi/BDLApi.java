@@ -30,6 +30,7 @@ public class BDLApi {
         BaseResult body = Objects.requireNonNull(response).body();
         return Util.convertToDataPoints(body);
     }
+
     public static String callDesc(int categoryId) {
         Retrofit instance = BDLRetrofitClientInstance.getRetrofitInstance();
         BDLApiAdapter adapter = instance.create(BDLApiAdapter.class);
@@ -41,6 +42,13 @@ public class BDLApi {
             e.printStackTrace();
         }
         Variable body = Objects.requireNonNull(response).body();
-        return body.getN();
+        String out = "";
+        if (body.n1 != null) {
+            out += body.n1;
+        }
+        if (body.n2 != null) {
+            out += " " + body.n2;
+        }
+        return out;
     }
 }

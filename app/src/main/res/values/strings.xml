@@ -6,14 +6,20 @@
     <string name="scaner">Skaner</string>
     <string name="title_activity_quiz">QuizActivity</string>
     <string name="achived">Zdobyte</string>
-    <string name="found_person">"\uD83C\uDFC6 Znalazłeś osobę! \uD83C\uDFC6"</string>
-    <string name="found_bottle">"\uD83C\uDFC6 Znalazłeś butelkę! \uD83C\uDFC6"</string>
-    <string name="found_clock">"\uD83C\uDFC6 Znalazłeś zegar! \uD83C\uDFC6"</string>
-    <string name="found_phone">"\uD83C\uDFC6 Znalazłeś telefon! \uD83C\uDFC6"</string>
-    <string name="found_laptop">"\uD83C\uDFC6 Znalazłeś laptop! \uD83C\uDFC6"</string>
-    <string name="found_cat">"\uD83C\uDFC6 Znalazłeś kota! \uD83C\uDFC6"</string>
-    <string name="statystyk">"\uD83C\uDFC6 Jestes Statystykiem! \uD83C\uDFC6"</string>
+    <string name="found_person">Znalazłeś osobę!</string>
+    <string name="found_bottle">Znalazłeś butelkę!</string>
+    <string name="found_clock">Znalazłeś zegar!</string>
+    <string name="found_phone">Znalazłeś telefon!</string>
+    <string name="found_laptop">Znalazłeś laptop!</string>
+    <string name="found_cat">Znalazłeś kota!</string>
+    <string name="statystyk">Jestes Statystykiem!</string>
+    <string name="bar_plot">Bar plot</string>
+    <string name="line_plot">Line plot</string>
+    <string name="grand_perm">Please grant permission for camera before entering scanning</string>
+    <string name="have_points">Masz %s punktów!</string>
+    <string name="player_name">Ty</string>
+    <string name="no_internet">It seems that you don\'t have internet connection</string>
+    <string name="plot_activity_name">Wykres</string>
     <string name="share">Udostępnij</string>
-    <string name="show_plot">Pokaż wykres</string>
-
+    <string name="show_plot">Wykres</string>
 </resources>

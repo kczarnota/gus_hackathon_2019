@@ -30,8 +30,8 @@
             android:id="@+id/toggle_plot_type"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:textOff="Bar plot"
-            android:textOn="Line plot" />
+            android:textOff="@string/bar_plot"
+            android:textOn="@string/line_plot" />
 
 
     </LinearLayout>
