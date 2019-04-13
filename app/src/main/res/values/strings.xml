@@ -13,5 +13,8 @@
     <string name="found_laptop">Znalazłeś laptop!</string>
     <string name="found_cat">Znalazłeś kota!</string>
     <string name="statystyk">Jestes Statystykiem!</string>
-
+    <string name="bar_plot">Bar plot</string>
+    <string name="line_plot">Line plot</string>
+    <string name="grand_perm">Please grant permission for camera before entering scanning</string>
+    <string name="have_points">Masz %s punktów!</string>
 </resources>

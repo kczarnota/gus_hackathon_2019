@@ -21,17 +21,26 @@ public class Person {
     private Context mContext;
 
     public final static String STATISTIC = "statystyk";
+    private static String POINTS = "points";
+    private static String ACHIVEMENT_0 = "0";
+    private static String ACHIVEMENT_1 = "1";
+    private static String ACHIVEMENT_2 = "2";
+    private static String ACHIVEMENT_3 = "3";
+    private static String ACHIVEMENT_4 = "4";
+    private static String ACHIVEMENT_5 = "5";
+    private static String ACHIVEMENT_6 = "6";
+
 
     public Person(Context context) {
         mSharedPrefs = context.getSharedPreferences("Person", Context.MODE_PRIVATE);
-        mPoints = mSharedPrefs.getInt("points", 0);
-        mAchievements.add(mSharedPrefs.getBoolean("0", false));
-        mAchievements.add(mSharedPrefs.getBoolean("1", false));
-        mAchievements.add(mSharedPrefs.getBoolean("2", false));
-        mAchievements.add(mSharedPrefs.getBoolean("3", false));
-        mAchievements.add(mSharedPrefs.getBoolean("4", false));
-        mAchievements.add(mSharedPrefs.getBoolean("5", false));
-        mAchievements.add(mSharedPrefs.getBoolean("6", false));
+        mPoints = mSharedPrefs.getInt(POINTS, 0);
+        mAchievements.add(mSharedPrefs.getBoolean(ACHIVEMENT_0, false));
+        mAchievements.add(mSharedPrefs.getBoolean(ACHIVEMENT_1, false));
+        mAchievements.add(mSharedPrefs.getBoolean(ACHIVEMENT_2, false));
+        mAchievements.add(mSharedPrefs.getBoolean(ACHIVEMENT_3, false));
+        mAchievements.add(mSharedPrefs.getBoolean(ACHIVEMENT_4, false));
+        mAchievements.add(mSharedPrefs.getBoolean(ACHIVEMENT_5, false));
+        mAchievements.add(mSharedPrefs.getBoolean(ACHIVEMENT_6, false));
         mContext = context;
     }
 
@@ -42,7 +51,7 @@ public class Person {
     public void addPoints(int points) {
         mPoints += points;
         SharedPreferences.Editor editor = mSharedPrefs.edit();
-        editor.putInt("points", mPoints);
+        editor.putInt(POINTS, mPoints);
         editor.apply();
     }
 
@@ -55,7 +64,7 @@ public class Person {
         SharedPreferences.Editor editor = mSharedPrefs.edit();
         editor.putBoolean(Integer.toString(index), true);
         mPoints += 10;
-        editor.putInt("points", mPoints);
+        editor.putInt(POINTS, mPoints);
         editor.apply();
     }
 
@@ -68,28 +77,28 @@ public class Person {
         }
 
         SharedPreferences.Editor editor = mSharedPrefs.edit();
-        editor.putInt("points", mPoints);
-        editor.putBoolean("0", false);
-        editor.putBoolean("1", false);
-        editor.putBoolean("2", false);
-        editor.putBoolean("3", false);
-        editor.putBoolean("4", false);
-        editor.putBoolean("5", false);
-        editor.putBoolean("6", false);
+        editor.putInt(POINTS, mPoints);
+        editor.putBoolean(ACHIVEMENT_0, false);
+        editor.putBoolean(ACHIVEMENT_1, false);
+        editor.putBoolean(ACHIVEMENT_2, false);
+        editor.putBoolean(ACHIVEMENT_3, false);
+        editor.putBoolean(ACHIVEMENT_4, false);
+        editor.putBoolean(ACHIVEMENT_5, false);
+        editor.putBoolean(ACHIVEMENT_6, false);
 
         editor.apply();
     }
 
     public void reload() {
         mAchievements.clear();
-        mPoints = mSharedPrefs.getInt("points", 0);
-        mAchievements.add(mSharedPrefs.getBoolean("0", true));
-        mAchievements.add(mSharedPrefs.getBoolean("1", false));
-        mAchievements.add(mSharedPrefs.getBoolean("2", false));
-        mAchievements.add(mSharedPrefs.getBoolean("3", false));
-        mAchievements.add(mSharedPrefs.getBoolean("4", false));
-        mAchievements.add(mSharedPrefs.getBoolean("5", false));
-        mAchievements.add(mSharedPrefs.getBoolean("6", false));
+        mPoints = mSharedPrefs.getInt(POINTS, 0);
+        mAchievements.add(mSharedPrefs.getBoolean(ACHIVEMENT_0, true));
+        mAchievements.add(mSharedPrefs.getBoolean(ACHIVEMENT_1, false));
+        mAchievements.add(mSharedPrefs.getBoolean(ACHIVEMENT_2, false));
+        mAchievements.add(mSharedPrefs.getBoolean(ACHIVEMENT_3, false));
+        mAchievements.add(mSharedPrefs.getBoolean(ACHIVEMENT_4, false));
+        mAchievements.add(mSharedPrefs.getBoolean(ACHIVEMENT_5, false));
+        mAchievements.add(mSharedPrefs.getBoolean(ACHIVEMENT_6, false));
 
     }
 
