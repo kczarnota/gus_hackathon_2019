@@ -8,8 +8,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.databinding.DataBindingUtil;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -41,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             } else {
                 Toast.makeText(this, "Please grant permission for camera before entering scanning", Toast.LENGTH_SHORT).show();
-                ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 0);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
             }
         });
 
@@ -55,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 mEyeClickedCounter++;
 
                 if (mEyeClickedCounter == 5) {
-                    mPerson.addScanned("statystyk");
+                    mPerson.addScanned(Person.STATISTIC);
                     update();
                 }
             }
@@ -65,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 0);
-            return;
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
         }
     }
 
