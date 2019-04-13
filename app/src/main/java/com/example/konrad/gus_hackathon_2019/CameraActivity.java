@@ -37,6 +37,9 @@ import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
 import android.view.TextureView;
+import android.widget.Toast;
+
+import com.example.konrad.gus_hackathon_2019.net.bdlapi.model.ClassToCategoriesMaps;
 
 import org.tensorflow.lite.Interpreter;
 
@@ -48,6 +51,8 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -161,11 +166,16 @@ public class CameraActivity extends AppCompatActivity
                 convertBitmapToByteBuffer(bitmap);
                 interpreter.run(imgData, output);
                 Map<Integer, Float> m = processOutput(output);
-                Log.d(TAG, "onImageAvailable: some");
                 if (m.size() > 0)
                 {
-                    Map.Entry<Integer, Float> entry = m.entrySet().iterator().next();
-                    Log.d(TAG, "onImageAvailable: " + m.get(entry.getKey()).toString());
+                    Map.Entry<Integer, Float> maxEntry = null;
+                    for (Map.Entry<Integer, Float> entry : m.entrySet()) {
+                        if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
+                            maxEntry = entry;
+                        }
+                    }
+                    String cls = ClassToCategoriesMaps.CLASSES[maxEntry.getKey()];
+                    Toast.makeText(CameraActivity.this, cls, Toast.LENGTH_SHORT).show();
                 }
             }
         }

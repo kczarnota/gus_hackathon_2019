@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.konrad.gus_hackathon_2019">
+    package="com.example.konrad.gus_hackathon_2019">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature android:name="android.hardware.camera" />
@@ -12,15 +15,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".PlotActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".CameraActivity">
         </activity>
+        <activity
+            android:name=".RankingActivity"
+            android:label="Ranking"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".InstructionActivity"
+            android:label="Instrukcja"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
