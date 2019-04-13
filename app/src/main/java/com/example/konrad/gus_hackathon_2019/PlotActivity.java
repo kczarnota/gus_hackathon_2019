@@ -77,6 +77,8 @@ public class PlotActivity extends AppCompatActivity {
                 if (dataPoints != null) {
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
 
+                    graph.addSeries(series);
+
                     graph.getViewport().setScalable(true);
                     graph.getViewport().setScalableY(true);
 
@@ -84,7 +86,6 @@ public class PlotActivity extends AppCompatActivity {
                     graph.getViewport().setMinY(0);
                     graph.getViewport().setMaxY(Util.getMax(dataPoints));
 
-                    graph.addSeries(series);
                     refreshBtn.setVisibility(View.INVISIBLE);
                 } else {
                     Toast.makeText(this, R.string.no_internet, Toast.LENGTH_SHORT).show();

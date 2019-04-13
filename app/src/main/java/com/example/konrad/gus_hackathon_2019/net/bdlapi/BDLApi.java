@@ -26,6 +26,8 @@ public class BDLApi {
             response = result.execute();
         } catch (IOException e) {
             e.printStackTrace();
+
+            return null;
         }
         BaseResult body = Objects.requireNonNull(response).body();
         return Util.convertToDataPoints(body);
@@ -40,6 +42,8 @@ public class BDLApi {
             response = result.execute();
         } catch (IOException e) {
             e.printStackTrace();
+
+            return "";
         }
         Variable body = Objects.requireNonNull(response).body();
         String out = "";

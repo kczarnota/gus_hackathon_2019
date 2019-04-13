@@ -39,6 +39,8 @@ public class EurostatApi {
             response = result.execute();
         } catch (IOException e) {
             e.printStackTrace();
+
+            return "";
         }
         EurostatDataResponse body = Objects.requireNonNull(response).body();
         return body.label;
@@ -53,6 +55,8 @@ public class EurostatApi {
             response = result.execute();
         } catch (IOException e) {
             e.printStackTrace();
+
+            return "";
         }
         EurostatDataResponse body = Objects.requireNonNull(response).body();
         return body.dimensions.geo.category.label.get(country);
