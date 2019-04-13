@@ -1,11 +1,12 @@
 package com.example.konrad.gus_hackathon_2019;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.konrad.gus_hackathon_2019.net.bdlapi.BDLApiAdapter;
@@ -19,7 +20,6 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -43,15 +43,13 @@ public class PlotActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plot);
 
-        plot_desc = (TextView) findViewById(R.id.plot_desc);
-        change_plot_type = (ToggleButton) findViewById(R.id.toggle_plot_type);
-        change_plot_type.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                togglePlotType();
-            }
-        });
-        graph = (GraphView) findViewById(R.id.graph);
+        Intent i = getIntent();
+        Toast.makeText(this, i.getStringExtra(CameraActivity.NAME_EXTRA), Toast.LENGTH_SHORT).show();
+
+        plot_desc = findViewById(R.id.plot_desc);
+        change_plot_type = findViewById(R.id.toggle_plot_type);
+        change_plot_type.setOnClickListener(view -> togglePlotType());
+        graph = findViewById(R.id.graph);
         Retrofit instance = RetrofitClientInstance.getRetrofitInstance();
         BDLApiAdapter adapter = instance.create(BDLApiAdapter.class);
         Call<BaseResult> result = adapter.getDataById(1234);

@@ -3,6 +3,7 @@ package com.example.konrad.gus_hackathon_2019;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
@@ -23,11 +24,6 @@ import android.media.Image;
 import android.media.ImageReader;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.renderscript.Allocation;
-import android.renderscript.Element;
-import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicYuvToRGB;
-import android.renderscript.Type;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +33,8 @@ import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
 import android.view.TextureView;
-import android.widget.Toast;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.konrad.gus_hackathon_2019.net.bdlapi.model.ClassToCategoriesMaps;
 
@@ -51,9 +48,8 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
@@ -62,6 +58,7 @@ import java.util.concurrent.TimeUnit;
 public class CameraActivity extends AppCompatActivity
 {
     public static final String TAG = CameraActivity.class.getSimpleName();
+    public static final String NAME_EXTRA = "com.example.konrad.gus_hackathon_2019.NAME_EXTRA";
 
     private MappedByteBuffer loadedModel;
     private ByteBuffer imgData;
@@ -175,7 +172,13 @@ public class CameraActivity extends AppCompatActivity
                         }
                     }
                     String cls = ClassToCategoriesMaps.CLASSES[maxEntry.getKey()];
-                    Toast.makeText(CameraActivity.this, cls, Toast.LENGTH_SHORT).show();
+                    runOnUiThread(() -> {
+                        if (!classesSet.contains(cls)) {
+                            classes.add(cls);
+                            classesSet.add(cls);
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
                 }
             }
         }
@@ -216,7 +219,9 @@ public class CameraActivity extends AppCompatActivity
         }
 
     };
-
+    private ArrayList<String> classes = new ArrayList<>();
+    private HashSet classesSet = new HashSet();
+    private ArrayAdapter<String> adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -231,6 +236,15 @@ public class CameraActivity extends AppCompatActivity
             e.printStackTrace();
         }
         interpreter = new Interpreter(loadedModel);
+
+        ListView listView = findViewById(R.id.classes_lv);
+        adapter = new ArrayAdapter<String>(this, R.layout.class_row, classes);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent i = new Intent(CameraActivity.this, PlotActivity.class);
+            i.putExtra(NAME_EXTRA, classes.get(position));
+            startActivity(i);
+        });
     }
 
 
@@ -489,8 +503,6 @@ public class CameraActivity extends AppCompatActivity
         imgData.putFloat((((pixelValue >> 8) & 0xFF) - IMAGE_MEAN) / IMAGE_STD);
         imgData.putFloat(((pixelValue & 0xFF) - IMAGE_MEAN) / IMAGE_STD);
     }
-
-    //private fun cardFromClassIndex(idx: Int) = Card(Rank.values()[idx % 13], Suit.values()[Math.floor(idx / 13.0).toInt()])
 
     private List<Float> flatten(float[][][] ar) {
         List<Float> retList = new ArrayList<>();
