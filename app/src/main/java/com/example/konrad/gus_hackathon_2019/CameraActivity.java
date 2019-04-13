@@ -311,7 +311,7 @@ public class CameraActivity extends AppCompatActivity
                     shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
                     startActivity(Intent.createChooser(shareIntent, "Choose an app"));
                 }
-
+                settingsDialog.dismiss();
             });
 
             Button showPlot = rootView.findViewById(R.id.dismiss);
@@ -319,6 +319,7 @@ public class CameraActivity extends AppCompatActivity
                 Intent i = new Intent(CameraActivity.this, PlotActivity.class);
                 i.putExtra(NAME_EXTRA, classes_id.get(position));
                 startActivity(i);
+                settingsDialog.dismiss();
             });
             settingsDialog.show();
         });
