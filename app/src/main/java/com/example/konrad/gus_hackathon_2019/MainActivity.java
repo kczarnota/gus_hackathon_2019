@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.databinding.DataBindingUtil;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -12,8 +13,7 @@ import com.example.konrad.gus_hackathon_2019.databinding.ActivityMainBinding;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private Person mPerson;
     private ActivityMainBinding mBinding;
@@ -46,8 +46,11 @@ public class MainActivity extends AppCompatActivity
                 if (mEyeClickedCounter == 5) {
                     mPerson.setAchieved(0);
                     update();
-                    Toast.makeText(getBaseContext(), "Jestes Statystykiem!",
-                            Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(getBaseContext(), "\uD83C\uDFC6 Jestes Statystykiem! \uD83C\uDFC6",
+                            Toast.LENGTH_LONG);
+
+                    toast.setGravity(Gravity.BOTTOM, 0, 400);
+                    toast.show();
                 }
             }
         });
