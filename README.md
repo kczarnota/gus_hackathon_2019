@@ -1,6 +1,6 @@
 # World Explorers - GUS Hackahon 2019
 
-# Opis
+## Opis
 
 Aplikacja łączy się za bazami danych Eurostat oraz Bankiem Danych Lokanlnych (BDL)
 i na podstawie uzyskanych danych dopasowuje wykresy do obiektów. Zastosowana
@@ -10,18 +10,19 @@ takie jak osiągnięcia po rozpoznaniu ciekawych obiektów oraz ranking.
 Użytkownicy mogą dzielić się zdjęciami z których uzsyskali ciekawe dane statystyczne
 poprzez publikowanie statusów na Facebook.
 
-# Zastosowane technologie
+## Zastosowane technologie
 
 - Android / Java
 - biblioteka Tensorflow Lite wykorzystywana do detekcji obietków na obrazie z kamery
 - Json Rest API przy łączeniu się do baz Eurostat i BDL
 
-# Środowisko programistyczne
+## Środowisko programistyczne
 
 - Android API Level 23 (Android 6.0 Marshallow)
 - Android Studio 3.3.2
 
-# Aplikacja została przestowana na następujących telefonach
+## Aplikacja została przestowana na następujących telefonach
+
 - Xiaomi Redmi Note 4
 - HTC 820
 - Xiaomi Mi 8 Lite
