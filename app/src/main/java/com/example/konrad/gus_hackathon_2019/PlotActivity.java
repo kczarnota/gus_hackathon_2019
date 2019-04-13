@@ -136,7 +136,7 @@ public class PlotActivity extends AppCompatActivity {
             String url = eurostatUrlFromClass(class_id);
             if (url != null) {
                 Random ra = new Random();
-                int code = ra.nextInt() % COUNTRY_CODES.length;
+                int code = Math.abs(ra.nextInt() % COUNTRY_CODES.length);
                 String desc = String.format("%s in %s", EurostatApi.callDesc(url, COUNTRY_CODES[code]), EurostatApi.callCountryName(url, COUNTRY_CODES[code]));
                 plot_desc.setText(desc);
                 return EurostatApi.callData(url, COUNTRY_CODES[code]);
@@ -144,7 +144,7 @@ public class PlotActivity extends AppCompatActivity {
         }
         int variable = bdlVariableFromClass(class_id);
         if (variable != 0) {
-            String desc = String.format("%s in %s", BDLApi.callDesc(variable));
+            String desc = String.format("%s", BDLApi.callDesc(variable));
             plot_desc.setText(desc);
             return BDLApi.callData(variable);
         }
