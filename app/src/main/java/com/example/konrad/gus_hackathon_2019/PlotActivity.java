@@ -41,12 +41,19 @@ public class PlotActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plot);
+        plot_desc = findViewById(R.id.plot_desc);
+        graph = (GraphView) findViewById(R.id.graph);
+
+    }
+
+    protected void onResume() {
+        super.onResume();
 
         Intent i = getIntent();
         int class_id = i.getExtras().getInt(NAME_EXTRA);
+
         this.dataPoints = chooseAndPrepareData(class_id);
 
-        plot_desc = (TextView) findViewById(R.id.plot_desc);
         change_plot_type = (ToggleButton) findViewById(R.id.toggle_plot_type);
         change_plot_type.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +61,6 @@ public class PlotActivity extends AppCompatActivity {
                 togglePlotType();
             }
         });
-        graph = (GraphView) findViewById(R.id.graph);
 
 
         if (dataPoints != null) {
