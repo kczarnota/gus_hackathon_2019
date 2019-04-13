@@ -175,10 +175,12 @@ public class CameraActivity extends AppCompatActivity
                         }
                     }
                     String cls = ClassToCategoriesMaps.CLASSES[maxEntry.getKey()];
+                    Map.Entry<Integer, Float> finalMaxEntry = maxEntry;
                     runOnUiThread(() -> {
                         if (!classesSet.contains(cls)) {
                             playNotificationSound();
                             classes.add(cls);
+                            classes_id.add(finalMaxEntry.getKey());
                             classesSet.add(cls);
                             adapter.notifyDataSetChanged();
                             mPerson.addScanned(cls);
@@ -234,6 +236,7 @@ public class CameraActivity extends AppCompatActivity
 
     };
     private ArrayList<String> classes = new ArrayList<>();
+    private ArrayList<Integer> classes_id = new ArrayList<>();
     private HashSet classesSet = new HashSet();
     private ArrayAdapter<String> adapter;
 
@@ -258,7 +261,7 @@ public class CameraActivity extends AppCompatActivity
         listView.setAdapter(adapter);
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Intent i = new Intent(CameraActivity.this, PlotActivity.class);
-            i.putExtra(NAME_EXTRA, classes.get(position));
+            i.putExtra(NAME_EXTRA, classes_id.get(position));
             startActivity(i);
         });
     }

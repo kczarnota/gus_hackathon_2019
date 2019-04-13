@@ -6,7 +6,14 @@ import java.util.Random;
 
 public class ClassToCategoriesMaps {
     private static Random generator = new Random();
-    public static final String[] CLASSES = new String[] {
+    public static final String[] COUNTRY_CODES = {
+            "PL",
+            "FR",
+            "DE",
+            "ES",
+            "IT"
+    };
+    public static final String[] CLASSES = new String[]{
             "person",
             "bicycle",
             "car",
@@ -137,7 +144,7 @@ public class ClassToCategoriesMaps {
             put("cake", new int[]{60, 61});
             put("pottedplant", new int[]{4385});
             put("bed", new int[]{40941});
-            put("toilet", new int[]{ 5032});
+            put("toilet", new int[]{5032});
             put("tvmonitor", new int[]{63176});
             put("laptop", new int[]{63180});
             put("mouse", new int[]{63180, 60200});
@@ -182,25 +189,26 @@ public class ClassToCategoriesMaps {
             put("cup", new String[]{"apro_mk_pobta?milkitem=PRO&precision=1&dairyprod=D5400"});
         }
     };
+
     public static int bdlVariableFromClass(int classId) {
         int[] variableIds = CLASS_TO_BDL_VARIABLE_MAP.get(CLASSES[classId]);
-        if(variableIds != null) {
+        if (variableIds != null) {
             int index = generator.nextInt() % variableIds.length;
             return variableIds[index];
-        }
-        else {
+        } else {
             return 0;
         }
     }
 
     public static String eurostatUrlFromClass(int classId) {
         String[] urls = CLASS_TO_EUROSTAT_CODE_MAP.get(CLASSES[classId]);
-        if(urls != null) {
+        if (urls != null) {
             int index = generator.nextInt() % urls.length;
             return urls[index];
-        }
-        else {
+        } else {
             return null;
         }
     }
+
+
 }

@@ -29,4 +29,32 @@ public class EurostatApi {
         EurostatDataResponse body = Objects.requireNonNull(response).body();
         return Util.convertToDataPoints(body);
     }
+
+    public static String callDesc(String dataset, String country) {
+        Retrofit instance = EurostatRetrofitClientInstance.getRetrofitInstance();
+        EurostatApiAdapter adapter = instance.create(EurostatApiAdapter.class);
+        Call<EurostatDataResponse> result = adapter.getDataFromDataSet(String.format("%s&geo=%s", dataset, country));
+        Response<EurostatDataResponse> response = null;
+        try {
+            response = result.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        EurostatDataResponse body = Objects.requireNonNull(response).body();
+        return body.label;
+    }
+
+    public static String callCountryName(String dataset, String country) {
+        Retrofit instance = EurostatRetrofitClientInstance.getRetrofitInstance();
+        EurostatApiAdapter adapter = instance.create(EurostatApiAdapter.class);
+        Call<EurostatDataResponse> result = adapter.getDataFromDataSet(String.format("%s&geo=%s", dataset, country));
+        Response<EurostatDataResponse> response = null;
+        try {
+            response = result.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        EurostatDataResponse body = Objects.requireNonNull(response).body();
+        return body.dimensions.geo.category.label.get(country);
+    }
 }

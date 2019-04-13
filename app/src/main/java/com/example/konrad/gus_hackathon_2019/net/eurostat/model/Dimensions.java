@@ -7,4 +7,6 @@ public class Dimensions {
     public Dimension unit;
     @SerializedName("time")
     public Dimension time;
+    @SerializedName("geo")
+    public Dimension geo;
 }

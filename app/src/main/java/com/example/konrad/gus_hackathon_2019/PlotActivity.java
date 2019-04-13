@@ -8,9 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.konrad.gus_hackathon_2019.net.bdlapi.BDLApi;
 import com.example.konrad.gus_hackathon_2019.net.eurostat.EurostatApi;
 import com.example.konrad.gus_hackathon_2019.util.Util;
 import com.jjoe64.graphview.GraphView;
@@ -18,6 +18,13 @@ import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+
+import java.util.Random;
+
+import static com.example.konrad.gus_hackathon_2019.CameraActivity.NAME_EXTRA;
+import static com.example.konrad.gus_hackathon_2019.mapping.ClassToCategoriesMaps.COUNTRY_CODES;
+import static com.example.konrad.gus_hackathon_2019.mapping.ClassToCategoriesMaps.bdlVariableFromClass;
+import static com.example.konrad.gus_hackathon_2019.mapping.ClassToCategoriesMaps.eurostatUrlFromClass;
 
 public class PlotActivity extends AppCompatActivity {
     GraphView graph;
@@ -35,7 +42,8 @@ public class PlotActivity extends AppCompatActivity {
         setContentView(R.layout.activity_plot);
 
         Intent i = getIntent();
-        Toast.makeText(this, i.getStringExtra(CameraActivity.NAME_EXTRA), Toast.LENGTH_SHORT).show();
+        int class_id = i.getExtras().getInt(NAME_EXTRA);
+        this.dataPoints = chooseAndPrepareData(class_id);
 
         plot_desc = (TextView) findViewById(R.id.plot_desc);
         change_plot_type = (ToggleButton) findViewById(R.id.toggle_plot_type);
@@ -47,7 +55,6 @@ public class PlotActivity extends AppCompatActivity {
         });
         graph = (GraphView) findViewById(R.id.graph);
 
-        this.dataPoints = EurostatApi.callData("tran_r_avpa_om?tra_meas=PAS_CRD&precision=1", "PL");
 
         if (dataPoints != null) {
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
@@ -107,5 +114,34 @@ public class PlotActivity extends AppCompatActivity {
         }
 
         this.bar_plot = !this.bar_plot;
+    }
+
+    DataPoint[] chooseAndPrepareData(int class_id) {
+        Random r = new Random();
+
+        boolean tryEurostat = false;
+
+        if (r.nextDouble() < 0.5) {
+            tryEurostat = true;
+        }
+
+        if (tryEurostat) {
+            String url = eurostatUrlFromClass(class_id);
+            if (url != null) {
+                Random ra = new Random();
+                int code = ra.nextInt() % COUNTRY_CODES.length;
+                String desc = String.format("%s in %s", EurostatApi.callDesc(url, COUNTRY_CODES[code]), EurostatApi.callCountryName(url, COUNTRY_CODES[code]));
+                plot_desc.setText(desc);
+                return EurostatApi.callData(url, COUNTRY_CODES[code]);
+            }
+        }
+        int variable = bdlVariableFromClass(class_id);
+        if (variable != 0) {
+            String desc = String.format("%s in %s", BDLApi.callDesc(variable));
+            plot_desc.setText(desc);
+            return BDLApi.callData(variable);
+        }
+
+        return new DataPoint[0];
     }
 }

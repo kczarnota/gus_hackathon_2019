@@ -11,4 +11,7 @@ public class EurostatDataResponse {
     @SerializedName("dimension")
     public Dimensions dimensions;
 
+    @SerializedName("label")
+    public String label;
+
 }
