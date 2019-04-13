@@ -2,10 +2,95 @@ package com.example.konrad.gus_hackathon_2019.net.bdlapi.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class ClassToCategoriesMaps {
-    public static Map<String, int[]> ClassToBDLVariableMap = new HashMap<String, int[]>() {
-            {
+    static Random generator = new Random();
+    static final String[] CLASSES = new String[] {
+            "person",
+            "bicycle",
+            "car",
+            "motorbike",
+            "aeroplane",
+            "bus",
+            "train",
+            "truck",
+            "boat",
+            "traffic light",
+            "fire hydrant",
+            "stop sign",
+            "parking meter",
+            "bench",
+            "bird",
+            "cat",
+            "dog",
+            "horse",
+            "sheep",
+            "cow",
+            "elephant",
+            "bear",
+            "zebra",
+            "giraffe",
+            "backpack",
+            "umbrella",
+            "handbag",
+            "tie",
+            "suitcase",
+            "frisbee",
+            "skis",
+            "snowboard",
+            "sports ball",
+            "kite",
+            "baseball bat",
+            "baseball glove",
+            "skateboard",
+            "surfboard",
+            "tennis racket",
+            "bottle",
+            "wine glass",
+            "cup",
+            "fork",
+            "knife",
+            "spoon",
+            "bowl",
+            "banana",
+            "apple",
+            "sandwich",
+            "orange",
+            "broccoli",
+            "carrot",
+            "hot dog",
+            "pizza",
+            "donut",
+            "cake",
+            "chair",
+            "sofa",
+            "pottedplant",
+            "bed",
+            "diningtable",
+            "toilet",
+            "tvmonitor",
+            "laptop",
+            "mouse",
+            "remote",
+            "keyboard",
+            "cell phone",
+            "microwave",
+            "oven",
+            "toaster",
+            "sink",
+            "refrigerator",
+            "book",
+            "clock",
+            "vase",
+            "scissors",
+            "teddy bear",
+            "hair drier",
+            "toothbrush"
+    };
+
+    static final Map<String, int[]> CLASS_TO_BDL_VARIABLE_MAP = new HashMap<String, int[]>() {
+        {
                 put("person", new int[]{105836, 105837, 35039});
                 put("bicycle", new int[]{288080, 80640, 80614});
                 put("car", new int[]{4670, 4671, 7849});
@@ -69,4 +154,14 @@ public class ClassToCategoriesMaps {
                 put("toothbrush", new int[]{394539});
             }
         };
+    public static int bdlVariableFromClass(int classId) {
+        int[] variableIds = CLASS_TO_BDL_VARIABLE_MAP.get(CLASSES[classId]);
+        if(variableIds != null) {
+            int index = generator.nextInt() % variableIds.length;
+            return variableIds[index];
+        }
+        else {
+            return 148551; //cinemas
+        }
+    }
 }
