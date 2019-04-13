@@ -16,7 +16,7 @@ import retrofit2.Retrofit;
 public class BDLApiTest {
     @Test
     public void exampleTest() {
-        Retrofit instance = RetrofitClientInstance.getRetrofitInstance();
+        Retrofit instance = BDLRetrofitClientInstance.getRetrofitInstance();
         BDLApiAdapter adapter = instance.create(BDLApiAdapter.class);
         Call<BaseResult> result = adapter.getDataById(3643);
         try {
